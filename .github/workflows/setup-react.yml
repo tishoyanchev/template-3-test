@@ -1,0 +1,28 @@
+name: Setup React and Template
+
+on:
+  push:
+    paths:
+      - .github/workflows/setup-react.yml
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Install React
+      run: npx create-react-app .
+
+    - name: Install react-frontend-template
+      run: npm install react-frontend-template
+
+    - name: Invoke react-frontend-template
+      run: npx react-frontend-template -t ${{ secrets.TEMPLATE_NAME }}
